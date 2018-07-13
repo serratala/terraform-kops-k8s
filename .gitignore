@@ -1,0 +1,6 @@
+/kops/ 
+terraform.tfstate
+tfplan
+deployment-spring-hateaos.yml
+.terraform
+

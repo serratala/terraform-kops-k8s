@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout: "10"
+  name: springboot-hateaos
+  labels:
+    run: springboot-hateaos
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 9000
+    protocol: TCP
+  selector:
+    app: springboot-hateaos
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-hateaos
+  labels:
+    app: springboot-hateaos
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: springboot-hateaos
+  template:
+    metadata:
+      labels:
+        app: springboot-hateaos
+    spec:
+      containers:
+        - name: springboot-hateaos
+          image: REPOSITORY
+          ports:
+            - name: http
+              containerPort: 9000
+              hostPort: 30000
+              protocol: TCP
+      imagePullSecrets:
+        - name: SECRET_NAME
