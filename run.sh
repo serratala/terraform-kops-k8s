@@ -65,14 +65,14 @@ setup() {
 
 provision() {
 
-    if ! [ -x "$(command -v terraform)" ]; then
+    if [ -x "$(command -v terraform)" ]; then
         echo "terraform: Terraforming on AWS"
         terraform init -input=false; terraform plan -var name="$CLUSTERNAME" -var vpc_cidr="$VPC_CIDR" -out tfplan -input=false; terraform apply -input=false tfplan
     else
-        echo "Install terraform with: ./run.sh setup"
+        echo "Install terraform with ./run.sh setup"
     fi
 
-    if ! [ -x "$(command -v terraform)" ]; then
+    if [ -x "$(command -v terraform)" ]; then
         
         echo "kops: Create a cluster"
         kops create cluster --v 0 --name=$(terraform output cluster_name) --state=$(terraform output state_store) \
@@ -113,7 +113,7 @@ provision() {
         echo "terraform: Terraforming on AWS"
         terraform init -input=false; terraform plan -var name="$CLUSTERNAME" -var vpc_cidr="$VPC_CIDR" -out tfplan -input=false; terraform apply -input=false tfplan
     else
-        echo "Install kops with: ./run.sh setup"
+        echo "Install kops with ./run.sh setup"
     fi
 
     echo "kubectl: Get all nodes including all namespaces"
