@@ -28,9 +28,9 @@ PARAM="$1"
 
 usage() {
     echo -e "Usage:"
-    echo -e "  $0 setup       Install the lastest version of Terraform, kops, Kubectl and Jq."
-    echo -e "  $0 provision   Provision a Kubernetes cluster with Terraform and kops."
-    echo -e "  $0 endpoint    Get the endpoint of AWS ELB."
+    echo -e "  $0 setup       Install the latest version of Terraform, Kops, Kubectl and Jq."
+    echo -e "  $0 provision   Terraforming on AWS and provisioning the kubernetes cluster."
+    echo -e "  $0 endpoint    Get endpoint of load balancer."
     echo -e "  $0 destroy     Destroy all cluster and terraforming."
     exit 1
 }
